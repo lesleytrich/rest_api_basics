@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REST API Mastery</title>
+    <title>REST API Mastery - Complete Guide</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,6 +29,8 @@
                             yellow: '#eab308',
                             red: '#ef4444',
                             purple: '#a855f7',
+                            pink: '#ec4899',
+                            gray: '#94a3b8',
                         }
                     },
                     animation: {
@@ -97,7 +99,13 @@
                         <a href="#intro" class="hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Intro</a>
                         <a href="#methods" class="hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Methods</a>
                         <a href="#status-codes" class="hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Status Codes</a>
-                        <a href="#playground" class="bg-accent-blue/10 text-accent-blue hover:bg-accent-blue/20 border border-accent-blue/20 px-4 py-2 rounded-md text-sm font-medium transition-all">Try It Live</a>
+                        <a href="#playground" class="bg-accent-blue/10 text-accent-blue hover:bg-accent-blue/20 border border-accent-blue/20 px-4 py-2 rounded-md text-sm font-medium transition-all">
+                            <span class="relative flex h-2 w-2 mr-2 inline-flex">
+                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-blue opacity-75"></span>
+                              <span class="relative inline-flex rounded-full h-2 w-2 bg-accent-blue"></span>
+                            </span>
+                            Live Playground
+                        </a>
                     </div>
                 </div>
             </div>
@@ -113,18 +121,18 @@
         <div class="max-w-4xl mx-auto text-center relative z-10">
             <div class="inline-flex items-center px-3 py-1 rounded-full border border-accent-green/30 bg-accent-green/10 text-accent-green text-xs font-medium mb-6">
                 <span class="flex h-2 w-2 rounded-full bg-accent-green mr-2 animate-pulse"></span>
-                Interactive Learning Environment
+                Connected to Real Public APIs
             </div>
             <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
-                Understand REST APIs <br>
-                <span class="text-white">One Request at a Time</span>
+                Master Every<br>
+                <span class="text-white">HTTP Method</span>
             </h1>
             <p class="text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-                Learn the language of the web. Explore HTTP methods, decipher status codes, and test your knowledge with a live simulated API playground.
+                From <strong>GET</strong> to <strong>OPTIONS</strong>. Explore the full spectrum of REST API interactions with real-time feedback.
             </p>
             <div class="flex justify-center gap-4">
                 <a href="#playground" class="bg-accent-blue hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg transition-all shadow-lg shadow-blue-500/25 flex items-center gap-2">
-                    <i class="fa-solid fa-terminal"></i> Open Playground
+                    <i class="fa-solid fa-satellite-dish"></i> Start Pinging
                 </a>
                 <a href="#methods" class="glass-panel hover:bg-slate-800 text-white font-semibold py-3 px-8 rounded-lg transition-all border border-slate-700">
                     Learn Basics
@@ -141,7 +149,7 @@
                 <p class="text-slate-400 max-w-2xl mx-auto">The verbs of the web. These define the action you want to perform on a resource.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 <!-- GET -->
                 <div class="glass-panel p-6 rounded-xl border-t-4 border-t-accent-green hover:-translate-y-1 transition-transform duration-300">
                     <div class="flex justify-between items-center mb-4">
@@ -150,7 +158,19 @@
                     </div>
                     <p class="text-slate-400 text-sm mb-4">Retrieves data from the server. Should not affect the state of the resource.</p>
                     <div class="bg-slate-950 p-3 rounded font-mono text-xs text-slate-300 border border-slate-800">
-                        GET /api/users
+                        GET /posts
+                    </div>
+                </div>
+
+                <!-- HEAD (NEW) -->
+                <div class="glass-panel p-6 rounded-xl border-t-4 border-t-slate-500 hover:-translate-y-1 transition-transform duration-300">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold">HEAD</h3>
+                        <span class="bg-slate-500/10 text-slate-400 px-2 py-1 rounded text-xs font-mono font-bold">SAFE</span>
+                    </div>
+                    <p class="text-slate-400 text-sm mb-4">Same as GET, but returns only headers (no body). Useful for checks.</p>
+                    <div class="bg-slate-950 p-3 rounded font-mono text-xs text-slate-300 border border-slate-800">
+                        HEAD /posts/1
                     </div>
                 </div>
 
@@ -162,8 +182,7 @@
                     </div>
                     <p class="text-slate-400 text-sm mb-4">Submits data to the server to create a new resource.</p>
                     <div class="bg-slate-950 p-3 rounded font-mono text-xs text-slate-300 border border-slate-800">
-                        POST /api/users <br>
-                        { "name": "Alice" }
+                        POST /posts
                     </div>
                 </div>
 
@@ -175,8 +194,7 @@
                     </div>
                     <p class="text-slate-400 text-sm mb-4">Updates a resource by replacing it entirely.</p>
                     <div class="bg-slate-950 p-3 rounded font-mono text-xs text-slate-300 border border-slate-800">
-                        PUT /api/users/1 <br>
-                        { "id": 1, "name": "Bob" }
+                        PUT /posts/1
                     </div>
                 </div>
 
@@ -188,8 +206,7 @@
                     </div>
                     <p class="text-slate-400 text-sm mb-4">Partially updates a resource (only changes fields sent).</p>
                     <div class="bg-slate-950 p-3 rounded font-mono text-xs text-slate-300 border border-slate-800">
-                        PATCH /api/users/1 <br>
-                        { "role": "admin" }
+                        PATCH /posts/1
                     </div>
                 </div>
 
@@ -201,7 +218,19 @@
                     </div>
                     <p class="text-slate-400 text-sm mb-4">Removes a specific resource from the server.</p>
                     <div class="bg-slate-950 p-3 rounded font-mono text-xs text-slate-300 border border-slate-800">
-                        DELETE /api/users/1
+                        DELETE /posts/1
+                    </div>
+                </div>
+
+                 <!-- OPTIONS (NEW) -->
+                 <div class="glass-panel p-6 rounded-xl border-t-4 border-t-accent-pink hover:-translate-y-1 transition-transform duration-300 md:col-span-2 xl:col-span-1">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold">OPTIONS</h3>
+                        <span class="bg-accent-pink/10 text-accent-pink px-2 py-1 rounded text-xs font-mono font-bold">SAFE</span>
+                    </div>
+                    <p class="text-slate-400 text-sm mb-4">Describes the communication options for the target resource.</p>
+                    <div class="bg-slate-950 p-3 rounded font-mono text-xs text-slate-300 border border-slate-800">
+                        OPTIONS /posts
                     </div>
                 </div>
             </div>
@@ -213,7 +242,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl font-bold text-white mb-4">Status Codes</h2>
-                <p class="text-slate-400 max-w-2xl mx-auto">The server's way of telling you what happened. Click a category to explore.</p>
+                <p class="text-slate-400 max-w-2xl mx-auto">The server's way of telling you what happened. Click a category to see a toast explanation.</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
@@ -225,21 +254,18 @@
                             <span class="font-mono text-accent-green font-bold">200</span>
                             <span class="text-sm font-medium">OK</span>
                         </div>
-                        <p class="text-xs text-slate-500 mt-2 group-hover:text-slate-400">Everything worked perfectly.</p>
                     </div>
                     <div onclick="showToast('201 Created: The request succeeded, and a new resource was created.')" class="bg-slate-900 p-4 rounded-lg border border-slate-800 hover:border-accent-green/50 cursor-pointer transition-colors group">
                         <div class="flex items-center gap-3">
                             <span class="font-mono text-accent-green font-bold">201</span>
                             <span class="text-sm font-medium">Created</span>
                         </div>
-                        <p class="text-xs text-slate-500 mt-2 group-hover:text-slate-400">Resource successfully created.</p>
                     </div>
                      <div onclick="showToast('204 No Content: The request succeeded, but there is no content to send back.')" class="bg-slate-900 p-4 rounded-lg border border-slate-800 hover:border-accent-green/50 cursor-pointer transition-colors group">
                         <div class="flex items-center gap-3">
                             <span class="font-mono text-accent-green font-bold">204</span>
                             <span class="text-sm font-medium">No Content</span>
                         </div>
-                        <p class="text-xs text-slate-500 mt-2 group-hover:text-slate-400">Success, but nothing to return.</p>
                     </div>
                 </div>
 
@@ -251,14 +277,12 @@
                             <span class="font-mono text-accent-blue font-bold">301</span>
                             <span class="text-sm font-medium">Moved Perm.</span>
                         </div>
-                        <p class="text-xs text-slate-500 mt-2 group-hover:text-slate-400">Resource moved permanently.</p>
                     </div>
                      <div onclick="showToast('304 Not Modified: Resource has not changed since last request. Use cached version.')" class="bg-slate-900 p-4 rounded-lg border border-slate-800 hover:border-accent-blue/50 cursor-pointer transition-colors group">
                         <div class="flex items-center gap-3">
                             <span class="font-mono text-accent-blue font-bold">304</span>
                             <span class="text-sm font-medium">Not Modified</span>
                         </div>
-                        <p class="text-xs text-slate-500 mt-2 group-hover:text-slate-400">Use cached version.</p>
                     </div>
                 </div>
 
@@ -270,35 +294,30 @@
                             <span class="font-mono text-accent-yellow font-bold">400</span>
                             <span class="text-sm font-medium">Bad Request</span>
                         </div>
-                        <p class="text-xs text-slate-500 mt-2 group-hover:text-slate-400">Invalid syntax or data.</p>
                     </div>
                     <div onclick="showToast('401 Unauthorized: Authentication is required and has failed or has not been provided.')" class="bg-slate-900 p-4 rounded-lg border border-slate-800 hover:border-accent-yellow/50 cursor-pointer transition-colors group">
                         <div class="flex items-center gap-3">
                             <span class="font-mono text-accent-yellow font-bold">401</span>
                             <span class="text-sm font-medium">Unauthorized</span>
                         </div>
-                        <p class="text-xs text-slate-500 mt-2 group-hover:text-slate-400">Who are you? Log in.</p>
                     </div>
                     <div onclick="showToast('403 Forbidden: The server understood the request but refuses to authorize it.')" class="bg-slate-900 p-4 rounded-lg border border-slate-800 hover:border-accent-yellow/50 cursor-pointer transition-colors group">
                         <div class="flex items-center gap-3">
                             <span class="font-mono text-accent-yellow font-bold">403</span>
                             <span class="text-sm font-medium">Forbidden</span>
                         </div>
-                        <p class="text-xs text-slate-500 mt-2 group-hover:text-slate-400">You are logged in, but can't do this.</p>
                     </div>
                     <div onclick="showToast('404 Not Found: The server can not find the requested resource.')" class="bg-slate-900 p-4 rounded-lg border border-slate-800 hover:border-accent-yellow/50 cursor-pointer transition-colors group">
                         <div class="flex items-center gap-3">
                             <span class="font-mono text-accent-yellow font-bold">404</span>
                             <span class="text-sm font-medium">Not Found</span>
                         </div>
-                        <p class="text-xs text-slate-500 mt-2 group-hover:text-slate-400">Resource doesn't exist.</p>
                     </div>
                     <div onclick="showToast('429 Too Many Requests: The user has sent too many requests in a given amount of time.')" class="bg-slate-900 p-4 rounded-lg border border-slate-800 hover:border-accent-yellow/50 cursor-pointer transition-colors group">
                         <div class="flex items-center gap-3">
                             <span class="font-mono text-accent-yellow font-bold">429</span>
                             <span class="text-sm font-medium">Too Many Req.</span>
                         </div>
-                        <p class="text-xs text-slate-500 mt-2 group-hover:text-slate-400">Slow down!</p>
                     </div>
                 </div>
 
@@ -310,14 +329,12 @@
                             <span class="font-mono text-accent-red font-bold">500</span>
                             <span class="text-sm font-medium">Internal Error</span>
                         </div>
-                        <p class="text-xs text-slate-500 mt-2 group-hover:text-slate-400">Server crashed/failed.</p>
                     </div>
                     <div onclick="showToast('503 Service Unavailable: The server is not ready to handle the request (e.g., down for maintenance).')" class="bg-slate-900 p-4 rounded-lg border border-slate-800 hover:border-accent-red/50 cursor-pointer transition-colors group">
                         <div class="flex items-center gap-3">
                             <span class="font-mono text-accent-red font-bold">503</span>
                             <span class="text-sm font-medium">Service Unavail.</span>
                         </div>
-                        <p class="text-xs text-slate-500 mt-2 group-hover:text-slate-400">Server is overloaded/down.</p>
                     </div>
                 </div>
             </div>
@@ -329,11 +346,12 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between mb-8">
                 <div>
-                    <h2 class="text-3xl font-bold text-white">API Playground</h2>
-                    <p class="text-slate-400 mt-2">Simulate real requests to a mock User API.</p>
+                    <h2 class="text-3xl font-bold text-white">Live API Playground</h2>
+                    <p class="text-slate-400 mt-2">Connecting to <a href="https://jsonplaceholder.typicode.com" target="_blank" class="text-accent-blue underline">JSONPlaceholder</a> & <a href="https://httpbin.org" target="_blank" class="text-accent-blue underline">HttpBin</a>.</p>
                 </div>
-                <div class="hidden md:flex gap-2">
-                    <span class="bg-slate-800 text-xs px-2 py-1 rounded text-slate-400 font-mono">Base URL: https://api.mock.test</span>
+                <div class="hidden md:flex flex-col items-end">
+                     <span class="bg-slate-800 text-xs px-2 py-1 rounded text-slate-400 font-mono mb-1">Default Base: https://jsonplaceholder.typicode.com</span>
+                     <span class="text-[10px] text-slate-500">*Absolute URLs (starting with http) override default base.</span>
                 </div>
             </div>
 
@@ -346,36 +364,44 @@
                         <div class="flex rounded-md shadow-sm mb-4">
                             <select id="methodSelect" onchange="toggleBodyInput()" class="bg-slate-800 border-none text-white text-sm rounded-l-md focus:ring-2 focus:ring-accent-blue font-mono font-bold py-2.5 pl-3 pr-8">
                                 <option value="GET">GET</option>
+                                <option value="HEAD">HEAD</option>
                                 <option value="POST">POST</option>
                                 <option value="PUT">PUT</option>
+                                <option value="PATCH">PATCH</option>
                                 <option value="DELETE">DELETE</option>
+                                <option value="OPTIONS">OPTIONS</option>
                             </select>
-                            <input type="text" id="endpointInput" value="/users" class="bg-slate-950 border-none text-slate-300 text-sm rounded-r-md focus:ring-2 focus:ring-accent-blue block w-full font-mono py-2.5 px-3" placeholder="/users">
+                            <input type="text" id="endpointInput" value="/users" class="bg-slate-950 border-none text-slate-300 text-xs rounded-r-md focus:ring-2 focus:ring-accent-blue block w-full font-mono py-2.5 px-3" placeholder="/users OR https://api...">
                         </div>
 
                         <div id="bodyInputGroup" class="hidden transition-all">
                             <label class="block text-xs uppercase text-slate-500 font-bold mb-2">Request Body (JSON)</label>
                             <textarea id="bodyInput" rows="5" class="bg-slate-950 border-none text-slate-300 text-xs rounded-md focus:ring-2 focus:ring-accent-blue block w-full font-mono p-3 leading-relaxed resize-none">{
   "name": "New User",
-  "role": "developer"
+  "email": "test@example.com"
 }</textarea>
                         </div>
                         
                         <div class="mt-4 pt-4 border-t border-slate-800">
-                             <label class="block text-xs uppercase text-slate-500 font-bold mb-2">Preset Scenarios</label>
+                             <label class="block text-xs uppercase text-slate-500 font-bold mb-2">Real World Scenarios</label>
                              <div class="flex flex-wrap gap-2">
-                                 <button onclick="setScenario('getAll')" class="text-xs bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 transition-colors">Get All Users</button>
-                                 <button onclick="setScenario('getOne')" class="text-xs bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 transition-colors">Get User #1</button>
-                                 <button onclick="setScenario('notFound')" class="text-xs bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 transition-colors">404 Error</button>
-                                 <button onclick="setScenario('create')" class="text-xs bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 transition-colors">Create User</button>
-                                 <button onclick="setScenario('badRequest')" class="text-xs bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 transition-colors">Bad Request</button>
-                                 <button onclick="setScenario('authError')" class="text-xs bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 transition-colors">Unauthorized</button>
-                                 <button onclick="setScenario('teapot')" class="text-xs bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 transition-colors">🫖 ?</button>
+                                 <button onclick="setScenario('getAll')" class="text-xs bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 transition-colors border border-slate-700">Get Users</button>
+                                 <button onclick="setScenario('getOne')" class="text-xs bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 transition-colors border border-slate-700">Get User #1</button>
+                                 <button onclick="setScenario('head')" class="text-xs bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 transition-colors border border-slate-700">Check (HEAD)</button>
+                                 <button onclick="setScenario('create')" class="text-xs bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 transition-colors border border-slate-700">Create (POST)</button>
+                                 <button onclick="setScenario('update')" class="text-xs bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 transition-colors border border-slate-700">Update (PUT)</button>
+                                 <button onclick="setScenario('options')" class="text-xs bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 transition-colors border border-slate-700">Options</button>
+                                 <div class="w-full h-px bg-slate-800 my-1"></div>
+                                 <!-- HttpBin Scenarios -->
+                                 <span class="text-[10px] text-slate-500 w-full uppercase font-bold">Status Code Tests (HttpBin)</span>
+                                 <button onclick="setScenario('authError')" class="text-xs bg-accent-red/10 text-accent-red hover:bg-accent-red/20 px-2 py-1 rounded transition-colors border border-accent-red/20">401 Auth</button>
+                                 <button onclick="setScenario('forbidden')" class="text-xs bg-accent-red/10 text-accent-red hover:bg-accent-red/20 px-2 py-1 rounded transition-colors border border-accent-red/20">403 Forbidden</button>
+                                 <button onclick="setScenario('teapot')" class="text-xs bg-accent-yellow/10 text-accent-yellow hover:bg-accent-yellow/20 px-2 py-1 rounded transition-colors border border-accent-yellow/20">418 Teapot</button>
                              </div>
                         </div>
 
                         <button onclick="sendRequest()" class="mt-6 w-full bg-accent-blue hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md transition-all shadow-lg shadow-blue-500/20 flex justify-center items-center gap-2">
-                            <i class="fa-solid fa-paper-plane text-xs"></i> Send Request
+                            <i class="fa-solid fa-paper-plane text-xs"></i> Send to Public API
                         </button>
                     </div>
                 </div>
@@ -385,7 +411,10 @@
                     <div class="bg-slate-900 border border-slate-800 rounded-xl shadow-xl h-full flex flex-col overflow-hidden relative">
                         <!-- Header -->
                         <div class="bg-slate-950 px-4 py-3 border-b border-slate-800 flex justify-between items-center">
-                            <span class="text-xs font-bold text-slate-400 uppercase">Response</span>
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-bold text-slate-400 uppercase">Response</span>
+                                <span id="targetUrlDisplay" class="hidden text-[10px] text-slate-600 font-mono truncate max-w-[200px]"></span>
+                            </div>
                             <div class="flex items-center gap-3">
                                 <span id="statusBadge" class="hidden text-xs font-mono font-bold px-2 py-1 rounded bg-slate-800 text-slate-500">Waiting...</span>
                                 <span id="timeBadge" class="hidden text-xs text-slate-600 font-mono">0ms</span>
@@ -398,12 +427,13 @@
                             <div id="loader" class="hidden absolute inset-0 bg-[#0d1117]/80 flex items-center justify-center z-10 backdrop-blur-sm">
                                 <div class="flex flex-col items-center gap-3">
                                     <div class="w-8 h-8 border-4 border-accent-blue border-t-transparent rounded-full animate-spin"></div>
-                                    <span class="text-accent-blue text-xs font-bold animate-pulse">Connecting...</span>
+                                    <span class="text-accent-blue text-xs font-bold animate-pulse">Contacting Server...</span>
                                 </div>
                             </div>
                             
                             <!-- Code Content -->
-                            <pre id="responseBody" class="p-6 text-slate-300"><code class="language-json">// Select a method and click "Send Request" to see the magic.</code></pre>
+                            <pre id="responseBody" class="p-6 text-slate-300"><code class="language-json">// Ready to ping public APIs.
+// Click a scenario on the left or type your own URL.</code></pre>
                         </div>
                     </div>
                 </div>
@@ -414,7 +444,7 @@
     <!-- Footer -->
     <footer class="bg-slate-950 border-t border-slate-900 py-12 text-center">
         <p class="text-slate-500 text-sm">
-            Designed for learning by <span class="text-accent-blue font-semibold">Gemini</span>.
+            Powered by <a href="https://jsonplaceholder.typicode.com/" class="underline hover:text-white">JSONPlaceholder</a> & <a href="https://httpbin.org/" class="underline hover:text-white">HttpBin</a>
         </p>
     </footer>
 
@@ -425,14 +455,8 @@
     </div>
 
     <script>
-        // --- Mock Data ---
-        const db = {
-            users: [
-                { id: 1, name: "Alice Johnson", role: "Admin", email: "alice@example.com" },
-                { id: 2, name: "Bob Smith", role: "Editor", email: "bob@example.com" },
-                { id: 3, name: "Charlie Davis", role: "Viewer", email: "charlie@example.com" }
-            ]
-        };
+        // --- Configuration ---
+        const DEFAULT_BASE_URL = 'https://jsonplaceholder.typicode.com';
 
         // --- UI Logic ---
 
@@ -440,7 +464,8 @@
             const method = document.getElementById('methodSelect').value;
             const bodyGroup = document.getElementById('bodyInputGroup');
             
-            if (method === 'POST' || method === 'PUT' || method === 'PATCH') {
+            // Only show body for methods that typically send data
+            if (['POST', 'PUT', 'PATCH'].includes(method)) {
                 bodyGroup.classList.remove('hidden');
                 setTimeout(() => bodyGroup.classList.add('opacity-100'), 10);
             } else {
@@ -453,7 +478,11 @@
             const endpointInput = document.getElementById('endpointInput');
             const bodyInput = document.getElementById('bodyInput');
 
+            // Reset request body default
+            bodyInput.value = JSON.stringify({ name: "New User", email: "test@example.com" }, null, 2);
+
             switch(type) {
+                // JSONPlaceholder Scenarios (Real data)
                 case 'getAll':
                     methodSelect.value = 'GET';
                     endpointInput.value = '/users';
@@ -462,31 +491,46 @@
                     methodSelect.value = 'GET';
                     endpointInput.value = '/users/1';
                     break;
+                case 'head':
+                    methodSelect.value = 'HEAD';
+                    endpointInput.value = '/users/1';
+                    break;
                 case 'notFound':
                     methodSelect.value = 'GET';
-                    endpointInput.value = '/users/999';
+                    endpointInput.value = '/users/999'; // Doesn't exist
                     break;
                 case 'create':
                     methodSelect.value = 'POST';
                     endpointInput.value = '/users';
-                    bodyInput.value = JSON.stringify({ name: "Diana Prince", role: "Hero" }, null, 2);
+                    // JSONPlaceholder will simulate a create (ID: 11)
                     break;
-                case 'badRequest':
-                    methodSelect.value = 'POST';
-                    endpointInput.value = '/users';
-                    bodyInput.value = "This is not JSON"; // Intentional error
+                case 'update':
+                    methodSelect.value = 'PUT';
+                    endpointInput.value = '/users/1';
+                    bodyInput.value = JSON.stringify({ id: 1, name: "Updated Name", username: "new_username" }, null, 2);
                     break;
+                case 'options':
+                    methodSelect.value = 'OPTIONS';
+                    endpointInput.value = 'https://httpbin.org/anything'; // Using HttpBin as JSONPlaceholder options response is minimal
+                    break;
+                
+                // HttpBin Scenarios (Status Codes)
                 case 'authError':
                     methodSelect.value = 'GET';
-                    endpointInput.value = '/admin/secrets';
+                    endpointInput.value = 'https://httpbin.org/status/401';
+                    break;
+                case 'forbidden':
+                    methodSelect.value = 'GET';
+                    endpointInput.value = 'https://httpbin.org/status/403';
                     break;
                 case 'teapot':
                     methodSelect.value = 'GET';
-                    endpointInput.value = '/coffee';
+                    endpointInput.value = 'https://httpbin.org/status/418';
                     break;
             }
             toggleBodyInput();
-            // Highlight the change visually slightly
+            
+            // Highlight interaction
             endpointInput.classList.add('ring-2', 'ring-accent-blue');
             setTimeout(() => endpointInput.classList.remove('ring-2', 'ring-accent-blue'), 300);
         }
@@ -532,95 +576,163 @@
             const responseBodyBlock = document.getElementById('responseBody');
             const statusBadge = document.getElementById('statusBadge');
             const timeBadge = document.getElementById('timeBadge');
+            const targetUrlDisplay = document.getElementById('targetUrlDisplay');
+
+            // 1. URL Construction
+            let finalUrl = endpoint;
+            if (!endpoint.startsWith('http')) {
+                finalUrl = DEFAULT_BASE_URL + (endpoint.startsWith('/') ? '' : '/') + endpoint;
+            }
 
             // Reset UI
             loader.classList.remove('hidden');
             responseBodyBlock.innerHTML = '';
             statusBadge.classList.add('hidden');
             timeBadge.classList.add('hidden');
+            targetUrlDisplay.textContent = method + " " + finalUrl;
+            targetUrlDisplay.classList.remove('hidden');
 
-            // Simulate Network Delay (400-1200ms)
-            const delay = Math.floor(Math.random() * 800) + 400;
-            
-            await new Promise(r => setTimeout(r, delay));
+            const startTime = performance.now();
 
-            let response = { status: 200, statusText: "OK", data: null };
-
-            // --- Mock Router Logic ---
             try {
-                // Parse Body if needed
-                let bodyData = null;
-                if (['POST', 'PUT', 'PATCH'].includes(method)) {
-                    try {
-                        bodyData = JSON.parse(rawBody);
-                    } catch (e) {
-                        throw { status: 400, statusText: "Bad Request", data: { error: "Invalid JSON in request body", details: e.message } };
+                // 2. Prepare Fetch Options
+                const options = {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json; charset=UTF-8',
+                    }
+                };
+
+                // Only send body if method allows/expects it
+                if (['POST', 'PUT', 'PATCH', 'DELETE'].includes(method)) {
+                    // Try parsing JSON to ensure it's valid before sending if visible
+                    if (!document.getElementById('bodyInputGroup').classList.contains('hidden')) {
+                         try {
+                            JSON.parse(rawBody); // Just for validation
+                            options.body = rawBody;
+                        } catch (e) {
+                             throw new Error("Invalid JSON in request body.");
+                        }
                     }
                 }
 
-                // Router
-                if (endpoint === '/users' && method === 'GET') {
-                    response.data = db.users;
-                } 
-                else if (endpoint.match(/^\/users\/\d+$/) && method === 'GET') {
-                    const id = parseInt(endpoint.split('/').pop());
-                    const user = db.users.find(u => u.id === id);
-                    if (user) {
-                        response.data = user;
-                    } else {
-                        throw { status: 404, statusText: "Not Found", data: { error: `User with ID ${id} not found` } };
-                    }
+                // 3. Execute Fetch
+                const response = await fetch(finalUrl, options);
+                
+                // 4. Process Response
+                const endTime = performance.now();
+                const duration = Math.round(endTime - startTime);
+                
+                // Capture Headers
+                const headers = {};
+                response.headers.forEach((val, key) => headers[key] = val);
+
+                // Try to parse JSON, fallback to text
+                let responseData;
+                const contentType = response.headers.get("content-type");
+                
+                // HEAD requests have no body, so don't try to parse
+                if (method === 'HEAD') {
+                    responseData = null;
+                } else if (contentType && contentType.includes("application/json")) {
+                    responseData = await response.json();
+                } else {
+                    responseData = await response.text();
+                    if (!responseData && response.status === 204) responseData = null;
                 }
-                else if (endpoint === '/users' && method === 'POST') {
-                    if (!bodyData.name) throw { status: 400, statusText: "Bad Request", data: { error: "Field 'name' is required" } };
-                    const newUser = { id: db.users.length + 1, ...bodyData };
-                    response = { status: 201, statusText: "Created", data: newUser };
-                }
-                else if (endpoint.match(/^\/users\/\d+$/) && method === 'DELETE') {
-                    response = { status: 204, statusText: "No Content", data: "" }; // 204 usually has no body, but we simulate structure
-                }
-                else if (endpoint.includes('admin') || endpoint.includes('secret')) {
-                    throw { status: 403, statusText: "Forbidden", data: { error: "You do not have permission to access this resource." } };
-                }
-                else if (endpoint === '/coffee') {
-                    throw { status: 418, statusText: "I'm a Teapot", data: { error: "Cannot brew coffee, I am a teapot." } };
-                }
-                else {
-                    // Default catch-all for unknown endpoints
-                    throw { status: 404, statusText: "Not Found", data: { error: `Endpoint ${method} ${endpoint} does not exist.` } };
-                }
+
+                // 5. Render Success/Error from Server
+                renderResponse(response.status, response.statusText || getStatusText(response.status), responseData, duration, method, headers);
 
             } catch (err) {
-                // Handle Errors defined in try block
-                response = err;
+                const endTime = performance.now();
+                renderError(err.message, Math.round(endTime - startTime));
+            } finally {
+                loader.classList.add('hidden');
             }
+        }
 
-            // --- Render Response ---
-            loader.classList.add('hidden');
-            
-            // Render Status Badge
-            statusBadge.classList.remove('hidden', 'bg-red-900/50', 'text-red-400', 'bg-green-900/50', 'text-green-400', 'bg-yellow-900/50', 'text-yellow-400', 'bg-blue-900/50', 'text-blue-400');
-            
+        function renderResponse(status, statusText, data, duration, method, headers) {
+            const statusBadge = document.getElementById('statusBadge');
+            const timeBadge = document.getElementById('timeBadge');
+            const responseBodyBlock = document.getElementById('responseBody');
+
+            // Color coding
             let colorClass = '';
-            if (response.status >= 200 && response.status < 300) colorClass = 'text-accent-green';
-            else if (response.status >= 300 && response.status < 400) colorClass = 'text-accent-blue';
-            else if (response.status >= 400 && response.status < 500) colorClass = 'text-accent-yellow';
-            else colorClass = 'text-accent-red';
+            let bgClass = '';
+            
+            if (status >= 200 && status < 300) { colorClass = 'text-accent-green'; bgClass='bg-green-900/20'; }
+            else if (status >= 300 && status < 400) { colorClass = 'text-accent-blue'; bgClass='bg-blue-900/20'; }
+            else if (status >= 400 && status < 500) { colorClass = 'text-accent-yellow'; bgClass='bg-yellow-900/20'; }
+            else { colorClass = 'text-accent-red'; bgClass='bg-red-900/20'; }
 
-            statusBadge.textContent = `${response.status} ${response.statusText}`;
-            statusBadge.className = `text-xs font-mono font-bold px-2 py-1 rounded bg-slate-800 ${colorClass}`;
+            statusBadge.textContent = `${status} ${statusText}`;
+            statusBadge.className = `text-xs font-mono font-bold px-2 py-1 rounded border border-white/5 ${bgClass} ${colorClass}`;
             statusBadge.classList.remove('hidden');
 
-            // Render Time
-            timeBadge.textContent = `${delay}ms`;
+            timeBadge.textContent = `${duration}ms`;
             timeBadge.classList.remove('hidden');
 
-            // Render Body
-            if (response.status === 204) {
-                 responseBodyBlock.innerHTML = `<span class="text-slate-500 italic">// No content returned</span>`;
-            } else {
-                 responseBodyBlock.innerHTML = syntaxHighlight(response.data);
+            // Logic for Displaying Content
+            let outputHtml = '';
+
+            // Detect JSONPlaceholder Limitation
+            const currentEndpoint = document.getElementById('endpointInput').value;
+            const isJsonPlaceholder = !currentEndpoint.startsWith('http') || currentEndpoint.includes('jsonplaceholder.typicode.com');
+            const isMutation = ['POST', 'PUT', 'PATCH', 'DELETE'].includes(method);
+
+            if (isMutation && isJsonPlaceholder && status >= 200 && status < 300) {
+                 outputHtml += `<div class="mb-4 p-3 bg-accent-yellow/10 border border-accent-yellow/20 rounded text-accent-yellow text-xs flex items-start gap-2">
+                    <i class="fa-solid fa-triangle-exclamation mt-0.5"></i>
+                    <div>
+                        <strong>API Limitation:</strong> You successfully simulated a ${method}, but JSONPlaceholder 
+                        <strong>does not actually save</strong> changes to their database. Future GET requests will return original data.
+                    </div>
+                 </div>`;
             }
+
+            // If it's a HEAD request, show headers prominently
+            if (method === 'HEAD') {
+                outputHtml += `<div class="mb-4 pb-4 border-b border-slate-800">
+                    <span class="text-xs uppercase font-bold text-slate-500 block mb-2">Response Headers (HEAD Request)</span>
+                    ${syntaxHighlight(headers)}
+                </div>`;
+                outputHtml += `<span class="text-slate-500 italic">// HEAD requests return no body.</span>`;
+            } else {
+                 // For other requests, show Body, but maybe add a Headers toggle later (keeping simple for now)
+                 if (data === null || data === undefined || data === "") {
+                    outputHtml += `<span class="text-slate-500 italic">// No content returned</span>`;
+                } else if (typeof data === 'object') {
+                    outputHtml += syntaxHighlight(data);
+                } else {
+                    outputHtml += data.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                }
+            }
+
+            responseBodyBlock.innerHTML = outputHtml;
+        }
+
+        function renderError(message, duration) {
+            const statusBadge = document.getElementById('statusBadge');
+            const responseBodyBlock = document.getElementById('responseBody');
+
+            statusBadge.textContent = "NETWORK ERROR";
+            statusBadge.className = `text-xs font-mono font-bold px-2 py-1 rounded bg-red-900/50 text-red-400 border border-red-500/50`;
+            statusBadge.classList.remove('hidden');
+
+            responseBodyBlock.innerHTML = `<span class="text-red-400 font-bold">Error:</span> <span class="text-slate-400">${message}</span>
+<br><br><span class="text-slate-500 text-xs">// Check your internet connection or CORS settings.</span>`;
+        }
+
+        // Helper for status texts
+        function getStatusText(code) {
+            const codes = {
+                200: "OK", 201: "Created", 204: "No Content",
+                301: "Moved Permanently", 304: "Not Modified",
+                400: "Bad Request", 401: "Unauthorized", 403: "Forbidden", 404: "Not Found", 405: "Method Not Allowed", 418: "I'm a Teapot", 429: "Too Many Requests",
+                500: "Internal Server Error", 503: "Service Unavailable"
+            };
+            return codes[code] || "Unknown Status";
         }
     </script>
 </body>
