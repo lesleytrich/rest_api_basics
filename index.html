@@ -682,8 +682,8 @@
             const isMutation = ['POST', 'PUT', 'PATCH', 'DELETE'].includes(method);
 
             if (isMutation && isJsonPlaceholder && status >= 200 && status < 300) {
-                 outputHtml += `<div class="mb-4 p-3 bg-accent-yellow/10 border border-accent-yellow/20 rounded text-accent-yellow text-xs flex items-start gap-2">
-                    <i class="fa-solid fa-triangle-exclamation mt-0.5"></i>
+                 outputHtml += `<div class="mb-4 p-3 bg-accent-yellow/10 border border-accent-yellow/20 rounded text-accent-yellow text-xs flex items-start gap-2 whitespace-normal">
+                    <i class="fa-solid fa-triangle-exclamation mt-0.5 shrink-0"></i>
                     <div>
                         <strong>API Limitation:</strong> You successfully simulated a ${method}, but JSONPlaceholder 
                         <strong>does not actually save</strong> changes to their database. Future GET requests will return original data.
