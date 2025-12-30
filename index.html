@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REST API Mastery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        slate: {
+                            850: '#1e293b',
+                            900: '#0f172a',
+                            950: '#020617',
+                        },
+                        accent: {
+                            blue: '#3b82f6',
+                            green: '#22c55e',
+                            yellow: '#eab308',
+                            red: '#ef4444',
+                            purple: '#a855f7',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569; 
+        }
+
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .method-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .code-block {
+            background: #0d1117;
+            border-radius: 0.5rem;
+            border: 1px solid #30363d;
+        }
+
+        /* Syntax highlighting simple simulation */
+        .json-key { color: #7ee787; }
+        .json-string { color: #a5d6ff; }
+        .json-number { color: #79c0ff; }
+        .json-boolean { color: #ff7b72; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-200 antialiased min-h-screen flex flex-col">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-panel border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid fa-server text-accent-blue text-2xl"></i>
+                    <span class="font-bold text-xl tracking-tight">REST<span class="text-accent-blue">Mastery</span></span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#intro" class="hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Intro</a>
+                        <a href="#methods" class="hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Methods</a>
+                        <a href="#status-codes" class="hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Status Codes</a>
+                        <a href="#playground" class="bg-accent-blue/10 text-accent-blue hover:bg-accent-blue/20 border border-accent-blue/20 px-4 py-2 rounded-md text-sm font-medium transition-all">Try It Live</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="intro" class="pt-32 pb-20 px-4 relative overflow-hidden">
+        <!-- Background accents -->
+        <div class="absolute top-20 right-0 -mr-20 -mt-20 w-96 h-96 bg-accent-blue/20 rounded-full blur-3xl opacity-30"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-accent-purple/20 rounded-full blur-3xl opacity-30"></div>
+
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <div class="inline-flex items-center px-3 py-1 rounded-full border border-accent-green/30 bg-accent-green/10 text-accent-green text-xs font-medium mb-6">
+                <span class="flex h-2 w-2 rounded-full bg-accent-green mr-2 animate-pulse"></span>
+                Interactive Learning Environment
+            </div>
+            <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
+                Understand REST APIs <br>
+                <span class="text-white">One Request at a Time</span>
+            </h1>
+            <p class="text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+                Learn the language of the web. Explore HTTP methods, decipher status codes, and test your knowledge with a live simulated API playground.
+            </p>
+            <div class="flex justify-center gap-4">
+                <a href="#playground" class="bg-accent-blue hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg transition-all shadow-lg shadow-blue-500/25 flex items-center gap-2">
+                    <i class="fa-solid fa-terminal"></i> Open Playground
+                </a>
+                <a href="#methods" class="glass-panel hover:bg-slate-800 text-white font-semibold py-3 px-8 rounded-lg transition-all border border-slate-700">
+                    Learn Basics
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Methods Section -->
+    <section id="methods" class="py-20 bg-slate-900/50 border-y border-slate-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-white mb-4">HTTP Methods</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">The verbs of the web. These define the action you want to perform on a resource.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- GET -->
+                <div class="glass-panel p-6 rounded-xl border-t-4 border-t-accent-green hover:-translate-y-1 transition-transform duration-300">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold">GET</h3>
+                        <span class="bg-accent-green/10 text-accent-green px-2 py-1 rounded text-xs font-mono font-bold">SAFE</span>
+                    </div>
+                    <p class="text-slate-400 text-sm mb-4">Retrieves data from the server. Should not affect the state of the resource.</p>
+                    <div class="bg-slate-950 p-3 rounded font-mono text-xs text-slate-300 border border-slate-800">
+                        GET /api/users
+                    </div>
+                </div>
+
+                <!-- POST -->
+                <div class="glass-panel p-6 rounded-xl border-t-4 border-t-accent-yellow hover:-translate-y-1 transition-transform duration-300">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold">POST</h3>
+                        <span class="bg-accent-yellow/10 text-accent-yellow px-2 py-1 rounded text-xs font-mono font-bold">CREATE</span>
+                    </div>
+                    <p class="text-slate-400 text-sm mb-4">Submits data to the server to create a new resource.</p>
+                    <div class="bg-slate-950 p-3 rounded font-mono text-xs text-slate-300 border border-slate-800">
+                        POST /api/users <br>
+                        { "name": "Alice" }
+                    </div>
+                </div>
+
+                <!-- PUT -->
+                <div class="glass-panel p-6 rounded-xl border-t-4 border-t-accent-blue hover:-translate-y-1 transition-transform duration-300">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold">PUT</h3>
+                        <span class="bg-accent-blue/10 text-accent-blue px-2 py-1 rounded text-xs font-mono font-bold">REPLACE</span>
+                    </div>
+                    <p class="text-slate-400 text-sm mb-4">Updates a resource by replacing it entirely.</p>
+                    <div class="bg-slate-950 p-3 rounded font-mono text-xs text-slate-300 border border-slate-800">
+                        PUT /api/users/1 <br>
+                        { "id": 1, "name": "Bob" }
+                    </div>
+                </div>
+
+                <!-- PATCH -->
+                <div class="glass-panel p-6 rounded-xl border-t-4 border-t-accent-purple hover:-translate-y-1 transition-transform duration-300">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold">PATCH</h3>
+                        <span class="bg-accent-purple/10 text-accent-purple px-2 py-1 rounded text-xs font-mono font-bold">UPDATE</span>
+                    </div>
+                    <p class="text-slate-400 text-sm mb-4">Partially updates a resource (only changes fields sent).</p>
+                    <div class="bg-slate-950 p-3 rounded font-mono text-xs text-slate-300 border border-slate-800">
+                        PATCH /api/users/1 <br>
+                        { "role": "admin" }
+                    </div>
+                </div>
+
+                <!-- DELETE -->
+                <div class="glass-panel p-6 rounded-xl border-t-4 border-t-accent-red hover:-translate-y-1 transition-transform duration-300">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold">DELETE</h3>
+                        <span class="bg-accent-red/10 text-accent-red px-2 py-1 rounded text-xs font-mono font-bold">REMOVE</span>
+                    </div>
+                    <p class="text-slate-400 text-sm mb-4">Removes a specific resource from the server.</p>
+                    <div class="bg-slate-950 p-3 rounded font-mono text-xs text-slate-300 border border-slate-800">
+                        DELETE /api/users/1
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Status Codes Section -->
+    <section id="status-codes" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-white mb-4">Status Codes</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">The server's way of telling you what happened. Click a category to explore.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                <!-- 2xx Success -->
+                <div class="space-y-4">
+                    <h3 class="text-accent-green font-bold text-lg border-b border-accent-green/20 pb-2">2xx Success</h3>
+                    <div onclick="showToast('200 OK: Standard response for successful requests.')" class="bg-slate-900 p-4 rounded-lg border border-slate-800 hover:border-accent-green/50 cursor-pointer transition-colors group">
+                        <div class="flex items-center gap-3">
+                            <span class="font-mono text-accent-green font-bold">200</span>
+                            <span class="text-sm font-medium">OK</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2 group-hover:text-slate-400">Everything worked perfectly.</p>
+                    </div>
+                    <div onclick="showToast('201 Created: The request succeeded, and a new resource was created.')" class="bg-slate-900 p-4 rounded-lg border border-slate-800 hover:border-accent-green/50 cursor-pointer transition-colors group">
+                        <div class="flex items-center gap-3">
+                            <span class="font-mono text-accent-green font-bold">201</span>
+                            <span class="text-sm font-medium">Created</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2 group-hover:text-slate-400">Resource successfully created.</p>
+                    </div>
+                     <div onclick="showToast('204 No Content: The request succeeded, but there is no content to send back.')" class="bg-slate-900 p-4 rounded-lg border border-slate-800 hover:border-accent-green/50 cursor-pointer transition-colors group">
+                        <div class="flex items-center gap-3">
+                            <span class="font-mono text-accent-green font-bold">204</span>
+                            <span class="text-sm font-medium">No Content</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2 group-hover:text-slate-400">Success, but nothing to return.</p>
+                    </div>
+                </div>
+
+                <!-- 3xx Redirection -->
+                <div class="space-y-4">
+                    <h3 class="text-accent-blue font-bold text-lg border-b border-accent-blue/20 pb-2">3xx Redirection</h3>
+                     <div onclick="showToast('301 Moved Permanently: This resource has moved to a new URL forever.')" class="bg-slate-900 p-4 rounded-lg border border-slate-800 hover:border-accent-blue/50 cursor-pointer transition-colors group">
+                        <div class="flex items-center gap-3">
+                            <span class="font-mono text-accent-blue font-bold">301</span>
+                            <span class="text-sm font-medium">Moved Perm.</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2 group-hover:text-slate-400">Resource moved permanently.</p>
+                    </div>
+                     <div onclick="showToast('304 Not Modified: Resource has not changed since last request. Use cached version.')" class="bg-slate-900 p-4 rounded-lg border border-slate-800 hover:border-accent-blue/50 cursor-pointer transition-colors group">
+                        <div class="flex items-center gap-3">
+                            <span class="font-mono text-accent-blue font-bold">304</span>
+                            <span class="text-sm font-medium">Not Modified</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2 group-hover:text-slate-400">Use cached version.</p>
+                    </div>
+                </div>
+
+                <!-- 4xx Client Error -->
+                <div class="space-y-4">
+                    <h3 class="text-accent-yellow font-bold text-lg border-b border-accent-yellow/20 pb-2">4xx Client Error</h3>
+                     <div onclick="showToast('400 Bad Request: The server could not understand the request due to invalid syntax.')" class="bg-slate-900 p-4 rounded-lg border border-slate-800 hover:border-accent-yellow/50 cursor-pointer transition-colors group">
+                        <div class="flex items-center gap-3">
+                            <span class="font-mono text-accent-yellow font-bold">400</span>
+                            <span class="text-sm font-medium">Bad Request</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2 group-hover:text-slate-400">Invalid syntax or data.</p>
+                    </div>
+                    <div onclick="showToast('401 Unauthorized: Authentication is required and has failed or has not been provided.')" class="bg-slate-900 p-4 rounded-lg border border-slate-800 hover:border-accent-yellow/50 cursor-pointer transition-colors group">
+                        <div class="flex items-center gap-3">
+                            <span class="font-mono text-accent-yellow font-bold">401</span>
+                            <span class="text-sm font-medium">Unauthorized</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2 group-hover:text-slate-400">Who are you? Log in.</p>
+                    </div>
+                    <div onclick="showToast('403 Forbidden: The server understood the request but refuses to authorize it.')" class="bg-slate-900 p-4 rounded-lg border border-slate-800 hover:border-accent-yellow/50 cursor-pointer transition-colors group">
+                        <div class="flex items-center gap-3">
+                            <span class="font-mono text-accent-yellow font-bold">403</span>
+                            <span class="text-sm font-medium">Forbidden</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2 group-hover:text-slate-400">You are logged in, but can't do this.</p>
+                    </div>
+                    <div onclick="showToast('404 Not Found: The server can not find the requested resource.')" class="bg-slate-900 p-4 rounded-lg border border-slate-800 hover:border-accent-yellow/50 cursor-pointer transition-colors group">
+                        <div class="flex items-center gap-3">
+                            <span class="font-mono text-accent-yellow font-bold">404</span>
+                            <span class="text-sm font-medium">Not Found</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2 group-hover:text-slate-400">Resource doesn't exist.</p>
+                    </div>
+                    <div onclick="showToast('429 Too Many Requests: The user has sent too many requests in a given amount of time.')" class="bg-slate-900 p-4 rounded-lg border border-slate-800 hover:border-accent-yellow/50 cursor-pointer transition-colors group">
+                        <div class="flex items-center gap-3">
+                            <span class="font-mono text-accent-yellow font-bold">429</span>
+                            <span class="text-sm font-medium">Too Many Req.</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2 group-hover:text-slate-400">Slow down!</p>
+                    </div>
+                </div>
+
+                <!-- 5xx Server Error -->
+                <div class="space-y-4">
+                    <h3 class="text-accent-red font-bold text-lg border-b border-accent-red/20 pb-2">5xx Server Error</h3>
+                     <div onclick="showToast('500 Internal Server Error: The server has encountered a situation it does not know how to handle.')" class="bg-slate-900 p-4 rounded-lg border border-slate-800 hover:border-accent-red/50 cursor-pointer transition-colors group">
+                        <div class="flex items-center gap-3">
+                            <span class="font-mono text-accent-red font-bold">500</span>
+                            <span class="text-sm font-medium">Internal Error</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2 group-hover:text-slate-400">Server crashed/failed.</p>
+                    </div>
+                    <div onclick="showToast('503 Service Unavailable: The server is not ready to handle the request (e.g., down for maintenance).')" class="bg-slate-900 p-4 rounded-lg border border-slate-800 hover:border-accent-red/50 cursor-pointer transition-colors group">
+                        <div class="flex items-center gap-3">
+                            <span class="font-mono text-accent-red font-bold">503</span>
+                            <span class="text-sm font-medium">Service Unavail.</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2 group-hover:text-slate-400">Server is overloaded/down.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Playground Section -->
+    <section id="playground" class="py-20 bg-slate-900/50 border-t border-slate-800/50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h2 class="text-3xl font-bold text-white">API Playground</h2>
+                    <p class="text-slate-400 mt-2">Simulate real requests to a mock User API.</p>
+                </div>
+                <div class="hidden md:flex gap-2">
+                    <span class="bg-slate-800 text-xs px-2 py-1 rounded text-slate-400 font-mono">Base URL: https://api.mock.test</span>
+                </div>
+            </div>
+
+            <!-- Playground Interface -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Request Panel -->
+                <div class="lg:col-span-1 space-y-6">
+                    <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl">
+                        <label class="block text-xs uppercase text-slate-500 font-bold mb-2">Method & Endpoint</label>
+                        <div class="flex rounded-md shadow-sm mb-4">
+                            <select id="methodSelect" onchange="toggleBodyInput()" class="bg-slate-800 border-none text-white text-sm rounded-l-md focus:ring-2 focus:ring-accent-blue font-mono font-bold py-2.5 pl-3 pr-8">
+                                <option value="GET">GET</option>
+                                <option value="POST">POST</option>
+                                <option value="PUT">PUT</option>
+                                <option value="DELETE">DELETE</option>
+                            </select>
+                            <input type="text" id="endpointInput" value="/users" class="bg-slate-950 border-none text-slate-300 text-sm rounded-r-md focus:ring-2 focus:ring-accent-blue block w-full font-mono py-2.5 px-3" placeholder="/users">
+                        </div>
+
+                        <div id="bodyInputGroup" class="hidden transition-all">
+                            <label class="block text-xs uppercase text-slate-500 font-bold mb-2">Request Body (JSON)</label>
+                            <textarea id="bodyInput" rows="5" class="bg-slate-950 border-none text-slate-300 text-xs rounded-md focus:ring-2 focus:ring-accent-blue block w-full font-mono p-3 leading-relaxed resize-none">{
+  "name": "New User",
+  "role": "developer"
+}</textarea>
+                        </div>
+                        
+                        <div class="mt-4 pt-4 border-t border-slate-800">
+                             <label class="block text-xs uppercase text-slate-500 font-bold mb-2">Preset Scenarios</label>
+                             <div class="flex flex-wrap gap-2">
+                                 <button onclick="setScenario('getAll')" class="text-xs bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 transition-colors">Get All Users</button>
+                                 <button onclick="setScenario('getOne')" class="text-xs bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 transition-colors">Get User #1</button>
+                                 <button onclick="setScenario('notFound')" class="text-xs bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 transition-colors">404 Error</button>
+                                 <button onclick="setScenario('create')" class="text-xs bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 transition-colors">Create User</button>
+                                 <button onclick="setScenario('badRequest')" class="text-xs bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 transition-colors">Bad Request</button>
+                                 <button onclick="setScenario('authError')" class="text-xs bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 transition-colors">Unauthorized</button>
+                                 <button onclick="setScenario('teapot')" class="text-xs bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 transition-colors">🫖 ?</button>
+                             </div>
+                        </div>
+
+                        <button onclick="sendRequest()" class="mt-6 w-full bg-accent-blue hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md transition-all shadow-lg shadow-blue-500/20 flex justify-center items-center gap-2">
+                            <i class="fa-solid fa-paper-plane text-xs"></i> Send Request
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Response Panel -->
+                <div class="lg:col-span-2">
+                    <div class="bg-slate-900 border border-slate-800 rounded-xl shadow-xl h-full flex flex-col overflow-hidden relative">
+                        <!-- Header -->
+                        <div class="bg-slate-950 px-4 py-3 border-b border-slate-800 flex justify-between items-center">
+                            <span class="text-xs font-bold text-slate-400 uppercase">Response</span>
+                            <div class="flex items-center gap-3">
+                                <span id="statusBadge" class="hidden text-xs font-mono font-bold px-2 py-1 rounded bg-slate-800 text-slate-500">Waiting...</span>
+                                <span id="timeBadge" class="hidden text-xs text-slate-600 font-mono">0ms</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Terminal Content -->
+                        <div class="p-0 flex-grow relative bg-[#0d1117] font-mono text-sm overflow-auto max-h-[500px]">
+                            <!-- Loading State -->
+                            <div id="loader" class="hidden absolute inset-0 bg-[#0d1117]/80 flex items-center justify-center z-10 backdrop-blur-sm">
+                                <div class="flex flex-col items-center gap-3">
+                                    <div class="w-8 h-8 border-4 border-accent-blue border-t-transparent rounded-full animate-spin"></div>
+                                    <span class="text-accent-blue text-xs font-bold animate-pulse">Connecting...</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Code Content -->
+                            <pre id="responseBody" class="p-6 text-slate-300"><code class="language-json">// Select a method and click "Send Request" to see the magic.</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-slate-900 py-12 text-center">
+        <p class="text-slate-500 text-sm">
+            Designed for learning by <span class="text-accent-blue font-semibold">Gemini</span>.
+        </p>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 transform translate-y-20 opacity-0 transition-all duration-300 z-50 bg-slate-800 border border-slate-700 text-white px-6 py-4 rounded-lg shadow-2xl flex items-center gap-3 max-w-sm">
+        <i class="fa-solid fa-circle-info text-accent-blue"></i>
+        <p id="toastMsg" class="text-sm">Notification</p>
+    </div>
+
+    <script>
+        // --- Mock Data ---
+        const db = {
+            users: [
+                { id: 1, name: "Alice Johnson", role: "Admin", email: "alice@example.com" },
+                { id: 2, name: "Bob Smith", role: "Editor", email: "bob@example.com" },
+                { id: 3, name: "Charlie Davis", role: "Viewer", email: "charlie@example.com" }
+            ]
+        };
+
+        // --- UI Logic ---
+
+        function toggleBodyInput() {
+            const method = document.getElementById('methodSelect').value;
+            const bodyGroup = document.getElementById('bodyInputGroup');
+            
+            if (method === 'POST' || method === 'PUT' || method === 'PATCH') {
+                bodyGroup.classList.remove('hidden');
+                setTimeout(() => bodyGroup.classList.add('opacity-100'), 10);
+            } else {
+                bodyGroup.classList.add('hidden');
+            }
+        }
+
+        function setScenario(type) {
+            const methodSelect = document.getElementById('methodSelect');
+            const endpointInput = document.getElementById('endpointInput');
+            const bodyInput = document.getElementById('bodyInput');
+
+            switch(type) {
+                case 'getAll':
+                    methodSelect.value = 'GET';
+                    endpointInput.value = '/users';
+                    break;
+                case 'getOne':
+                    methodSelect.value = 'GET';
+                    endpointInput.value = '/users/1';
+                    break;
+                case 'notFound':
+                    methodSelect.value = 'GET';
+                    endpointInput.value = '/users/999';
+                    break;
+                case 'create':
+                    methodSelect.value = 'POST';
+                    endpointInput.value = '/users';
+                    bodyInput.value = JSON.stringify({ name: "Diana Prince", role: "Hero" }, null, 2);
+                    break;
+                case 'badRequest':
+                    methodSelect.value = 'POST';
+                    endpointInput.value = '/users';
+                    bodyInput.value = "This is not JSON"; // Intentional error
+                    break;
+                case 'authError':
+                    methodSelect.value = 'GET';
+                    endpointInput.value = '/admin/secrets';
+                    break;
+                case 'teapot':
+                    methodSelect.value = 'GET';
+                    endpointInput.value = '/coffee';
+                    break;
+            }
+            toggleBodyInput();
+            // Highlight the change visually slightly
+            endpointInput.classList.add('ring-2', 'ring-accent-blue');
+            setTimeout(() => endpointInput.classList.remove('ring-2', 'ring-accent-blue'), 300);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            toastMsg.textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        function syntaxHighlight(json) {
+            if (typeof json != 'string') {
+                json = JSON.stringify(json, undefined, 2);
+            }
+            json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+                var cls = 'json-number';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) {
+                        cls = 'json-key';
+                    } else {
+                        cls = 'json-string';
+                    }
+                } else if (/true|false/.test(match)) {
+                    cls = 'json-boolean';
+                } else if (/null/.test(match)) {
+                    cls = 'json-null';
+                }
+                return '<span class="' + cls + '">' + match + '</span>';
+            });
+        }
+
+        async function sendRequest() {
+            const method = document.getElementById('methodSelect').value;
+            const endpoint = document.getElementById('endpointInput').value;
+            const rawBody = document.getElementById('bodyInput').value;
+            
+            const loader = document.getElementById('loader');
+            const responseBodyBlock = document.getElementById('responseBody');
+            const statusBadge = document.getElementById('statusBadge');
+            const timeBadge = document.getElementById('timeBadge');
+
+            // Reset UI
+            loader.classList.remove('hidden');
+            responseBodyBlock.innerHTML = '';
+            statusBadge.classList.add('hidden');
+            timeBadge.classList.add('hidden');
+
+            // Simulate Network Delay (400-1200ms)
+            const delay = Math.floor(Math.random() * 800) + 400;
+            
+            await new Promise(r => setTimeout(r, delay));
+
+            let response = { status: 200, statusText: "OK", data: null };
+
+            // --- Mock Router Logic ---
+            try {
+                // Parse Body if needed
+                let bodyData = null;
+                if (['POST', 'PUT', 'PATCH'].includes(method)) {
+                    try {
+                        bodyData = JSON.parse(rawBody);
+                    } catch (e) {
+                        throw { status: 400, statusText: "Bad Request", data: { error: "Invalid JSON in request body", details: e.message } };
+                    }
+                }
+
+                // Router
+                if (endpoint === '/users' && method === 'GET') {
+                    response.data = db.users;
+                } 
+                else if (endpoint.match(/^\/users\/\d+$/) && method === 'GET') {
+                    const id = parseInt(endpoint.split('/').pop());
+                    const user = db.users.find(u => u.id === id);
+                    if (user) {
+                        response.data = user;
+                    } else {
+                        throw { status: 404, statusText: "Not Found", data: { error: `User with ID ${id} not found` } };
+                    }
+                }
+                else if (endpoint === '/users' && method === 'POST') {
+                    if (!bodyData.name) throw { status: 400, statusText: "Bad Request", data: { error: "Field 'name' is required" } };
+                    const newUser = { id: db.users.length + 1, ...bodyData };
+                    response = { status: 201, statusText: "Created", data: newUser };
+                }
+                else if (endpoint.match(/^\/users\/\d+$/) && method === 'DELETE') {
+                    response = { status: 204, statusText: "No Content", data: "" }; // 204 usually has no body, but we simulate structure
+                }
+                else if (endpoint.includes('admin') || endpoint.includes('secret')) {
+                    throw { status: 403, statusText: "Forbidden", data: { error: "You do not have permission to access this resource." } };
+                }
+                else if (endpoint === '/coffee') {
+                    throw { status: 418, statusText: "I'm a Teapot", data: { error: "Cannot brew coffee, I am a teapot." } };
+                }
+                else {
+                    // Default catch-all for unknown endpoints
+                    throw { status: 404, statusText: "Not Found", data: { error: `Endpoint ${method} ${endpoint} does not exist.` } };
+                }
+
+            } catch (err) {
+                // Handle Errors defined in try block
+                response = err;
+            }
+
+            // --- Render Response ---
+            loader.classList.add('hidden');
+            
+            // Render Status Badge
+            statusBadge.classList.remove('hidden', 'bg-red-900/50', 'text-red-400', 'bg-green-900/50', 'text-green-400', 'bg-yellow-900/50', 'text-yellow-400', 'bg-blue-900/50', 'text-blue-400');
+            
+            let colorClass = '';
+            if (response.status >= 200 && response.status < 300) colorClass = 'text-accent-green';
+            else if (response.status >= 300 && response.status < 400) colorClass = 'text-accent-blue';
+            else if (response.status >= 400 && response.status < 500) colorClass = 'text-accent-yellow';
+            else colorClass = 'text-accent-red';
+
+            statusBadge.textContent = `${response.status} ${response.statusText}`;
+            statusBadge.className = `text-xs font-mono font-bold px-2 py-1 rounded bg-slate-800 ${colorClass}`;
+            statusBadge.classList.remove('hidden');
+
+            // Render Time
+            timeBadge.textContent = `${delay}ms`;
+            timeBadge.classList.remove('hidden');
+
+            // Render Body
+            if (response.status === 204) {
+                 responseBodyBlock.innerHTML = `<span class="text-slate-500 italic">// No content returned</span>`;
+            } else {
+                 responseBodyBlock.innerHTML = syntaxHighlight(response.data);
+            }
+        }
+    </script>
+</body>
+</html>
